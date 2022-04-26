@@ -1,0 +1,7 @@
+#The local controller will collect
+#real-time data such as buffer capacity, configured MAC layer protocol, energy, hop
+#count, CPU usage from IoT devices using OpenFlow, OF-Config, OVS-DB protocol, and
+#NETCONF. This data will then be forwarded to the global controller using the controller
+#to controller communication protocols.
+
+dsdf
