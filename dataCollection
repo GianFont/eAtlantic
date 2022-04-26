@@ -4,4 +4,73 @@
 #NETCONF. This data will then be forwarded to the global controller using the controller
 #to controller communication protocols.
 
-dsdf
+
+from pox.core import core
+from pox.lib.util import dpidToStr
+import pox.openflow.libopenflow_01 as of
+
+log = core.getLogger()
+
+class SimpleController(object)
+
+
+   def _handle_qeuestats_received (self, event):
+        """
+        handler to manage queued packets statistics received
+        Args:
+            event: Event listening to QueueStatsReceived from openflow
+        """
+        stats = flow_stats_to_list(event.stats)
+        # log.info("QueueStatsReceived from %s: %s", dpidToStr(event.connection.dpid), stats)
+        
+  def _handle_flowstats_received (event):
+      stats = flow_stats_to_list(event.stats)
+      log.debug("FlowStatsReceived from %s: %s", 
+        dpidToStr(event.connection.dpid), stats) 
+    
+   
+  # handler to display port statistics received in JSON format
+  def _handle_portstats_received (event):
+    stats = flow_stats_to_list(event.stats)
+    log.debug("PortStatsReceived from %s: %s", 
+    dpidToStr(event.connection.dpid), stats)
+    
+  # main functiont to launch the module
+def launch ():
+  from pox.lib.recoco import Timer
+
+  # attach handsers to listners
+  core.openflow.addListenerByName("FlowStatsReceived", 
+    _handle_flowstats_received) 
+  core.openflow.addListenerByName("PortStatsReceived", 
+    _handle_portstats_received) 
+
+  # timer set to execute every five seconds
+  Timer(5, _timer_func, recurring=True)
+  
+  
+#   def _handle_portstats_received(self,event):
+#      """
+#       Handler to manage port statistics received
+#        Args:
+#            event: Event listening to PortStatsReceived from openflow
+#        """
+#        for f in event.stats:
+#            if int(f.port_no)<65534: # used from hosts and switches interlinks
+#                current_bytes = f.rx_bytes + f.tx_bytes  # transmitted and received
+#                try:
+#                    last_bytes = self.switches_bw[int(event.connection.dpid)][int(f.port_no)]
+#                except:
+#                    last_bytes = 0
+#                estim_bw = (((current_bytes - last_bytes)/1024)/1024)*8
+#                estim_bw = float(format(estim_bw, '.2f'))
+#                if estim_bw > 0:
+#                    print pox.lib.util.dpidToStr(event.connection.dpid), f.port_no, estim_bw
+
+                self.switches_bw[int(event.connection.dpid)][int(f.port_no)] = (f.rx_bytes + f.tx_bytes)
+
+
+ # get stats START ------------------------------------------------------------------>
+ #core.openflow.addListenerByName("FlowStatsReceived", self._handle_flowstats_received)
+ #core.openflow.addListenerByName("PortStatsReceived", self._handle_portstats_received)
+# core.openflow.addListenerByName("QueueStatsReceived", self._handle_qeuestats_received)
