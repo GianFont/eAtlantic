@@ -1,0 +1,7 @@
+#This task is to apply a machine learning method to
+#the data collected in Task 3.2 and select the best path for the controller to IoT device
+#communication. Further, the best path is also selected from the controller to IoT device
+#communication. We will employ deep Q-learning (DQL) to decide the optimal
+#control-traffic path (from the controller to an IoT device) and the data-traffic path
+#(from an IoT application node to the IoT device) subject to the reliability and latency
+#requirements of the networks
