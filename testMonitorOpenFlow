@@ -1,1 +1,36 @@
+#In our algorithm, each network wireless device (S1, S2, S3, S4) gets an IP address using
+#an address auto-configuration protocol. As each device also runs a routing protocol, a
+#device gets the information about a neighboring device (e.g., IP address), once the
+#routing protocol discovers it. On reception of neighbor information, the tunnel agent
+#running on the device creates a tunnel between the device and a discovered neighbor.
+#The OVS-DB server configures the controller information (the controller IP address and
+#transport layer parameters) in a wireless device, once the routing protocol running on
+#the OVS-DB server discovers the wireless device in the network. A path between the
+#OVS-DB server and the discovered wireless device is decided by the routing protocol.
+#Once a wireless device knows the IP address of the controller (from the OVS-DB
+#server), it runs ARP to know the MAC address of the controller. The ARP messages
+#follow a path to the controller, decided by the routing protocol. After knowing the MAC
+#address of the controller (using ARP), the wireless device establishes a transport layer
+#session with the controller. The path for establishing the transport layer session is also
+#given by the routing protocol. In the next step, the wireless device establishes an
+#OpenFlow session with the controller (using the same path used by the transport layer
+#protocol). By this way, each IoT device in the network configures OpenFlow.
+
+
 import pox.openflow.libopenflow_01 as of
+from collections import defaultdict
+
+# Even a simple usage of the logger is much nicer than print!
+log = core.getLogger()
+
+
+prev_stats = defaultdict(lambda:defaultdict(lambda:None))
+
+log.debug("Sending Port Stat Requests to all switches that have active flows")
+
+
+msg = of.ofp_stats_request(body=of.ofp_flow_stats_request())
+
+for connection in core.openflow._connections.values():
+		connection.send(of.ofp_stats_request(body=of.ofp_flow_stats_request()))
+		connection.send(of.ofp_stats_request(body=of.ofp_port_stats_request()))
