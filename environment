@@ -1,6 +1,7 @@
 import numpy as np
 import os
 
+#check physical distance is respected
 
 class Env:
 
