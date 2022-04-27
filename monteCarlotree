@@ -5,7 +5,7 @@ import utils
 
 from config import Config
 from network import Network
-from connect4_env import Connect4Env
+from environment import env
 from logger import logger
 
 config = Config()
