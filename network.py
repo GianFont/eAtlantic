@@ -8,7 +8,7 @@ from keras.models import Model, load_model
 from keras.optimizers import SGD
 from keras.callbacks import TensorBoard, ModelCheckpoint
 
-from connect4_env import Connect4Env
+from connect4_env import environment
 import utils
 from config import Config
 import logger
