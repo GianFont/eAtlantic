@@ -102,13 +102,13 @@ class Network(object):
         return model
 
     def save(self):
-        self.model.save(filepath='{}\models\connect4agent_v3_{}_model.h5'.format(self.root_path, self.name),
+        self.model.save(filepath='{}\models\routWilab_v3_{}_model.h5'.format(self.root_path, self.name),
                         include_optimizer=True,
                         overwrite=True)
         logger.info('models are saved for {}.'.format(self.name))
 
     def load(self):
-        file_path = '{}\models\connect4agent_v3_{}_model.h5'.format(self.root_path, self.name)
+        file_path = '{}\models\routWilab_v3_{}_model.h5'.format(self.root_path, self.name)
         if os.path.exists(file_path):
             model = load_model(file_path)
             logger.info('loaded model for {}'.format(self.name))
@@ -133,7 +133,7 @@ class Network(object):
 
 
 if __name__ == '__main__':
-    env = Connect4Env(width=7, height=6)
+    env = environment(width=7, height=6)
     state = utils.format_state(env.get_state(), env)
     network = Network('test')
     v, p = network.predict(state)
