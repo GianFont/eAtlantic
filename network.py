@@ -29,11 +29,11 @@ class Network(object):
         self.graph = tf.get_default_graph()
         with self.graph.as_default():
             self.model = self._build_model()
-            self.tensorboard = TensorBoard(log_dir='{}\logs\connect4agent_v3'.format(self.root_path),
+            self.tensorboard = TensorBoard(log_dir='{}\logs\routWilab_v3_'.format(self.root_path),
                                            histogram_freq=0,
                                            write_graph=None, write_images=None)
             self.checkpoint = ModelCheckpoint(
-                filepath='{}\models\connect4agent_v3_{}_model_checkpoint.h5'.format(self.root_path, self.name),
+                filepath='{}\models\routWilab_v3_{}_model_checkpoint.h5'.format(self.root_path, self.name),
                 save_best_only=True)
 
     def _add_conv_block(self, prev_block, filters, kernel_size):
